@@ -1,0 +1,14 @@
+h1{
+    display: inline-block;
+    background-color: aqua;
+}
+span{
+    background-color: yellow;
+}
+button{
+    cursor:pointer;
+}
+label{
+    background-color: aquamarine;
+    border-radius: 5px;
+}
