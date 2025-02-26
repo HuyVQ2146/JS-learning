@@ -138,7 +138,7 @@ while (!login) {
 
 // hoặc 
 friendName ="  cThuLul     ";
-friendName = friendName.trim().charAt(0).toUpperCase() + friendName.trim().slice(1).toLowerCase();
+friendName = friendName.trim().charAt(0).toUpperCase() + friendName.trim().slice(1).toLowerCase(); // slice từ [1:]
 console.log(friendName);
 
 
@@ -475,3 +475,128 @@ function combineString(...string){
 };
 let full = combineString("Vu", "Quang", "Huy");
 console.log(full);
+
+
+
+let numbers = [1,2,3,4,5];
+function callback(element){
+    console.log(element);
+};
+function triple(element, index, array){ // forEach() sẽ tự động lấy value, index, array của numbers
+    // nếu để 1 mình element cx đc
+    array[index] = element * 3;
+    console.log(array[index]);
+};
+numbers.forEach(callback); // với mỗi num trong numbers, callback() nó
+numbers.forEach(triple);
+let squares = numbers.map( (element) => Math.pow(element, 2) );
+console.log(squares); // [9, 36, 81, 144, 225]
+
+function cube(element){
+    return Math.pow(element, 3);
+};
+
+
+function formatDate(cur){
+    const parts = cur.split('-'); // giống trong python
+    return `${parts[2]}-0${parts[1]}-${parts[0]}`;
+};
+const dates = ['2024-9-11', '2020-2-12', '2025-2-26'];
+const formattedDates = dates.map(formatDate);
+console.log(formattedDates); // ["11-09-2024", "12-02-2020", "26-02-2025"]
+
+
+
+function isEven(value){
+    return value % 2 === 0;
+};
+function isOdd(value){
+    return value % 2 !== 0;
+};
+let nums = [1,2,3,4,5,6,7,8,9,0];
+let evens = nums.filter(isEven); // check nếu true thì lấy
+let odds = nums.filter(isOdd);
+let zero = nums.filter( (element) => element === 0);
+
+console.log(evens);
+console.log(odds);
+console.log(zero);
+
+
+function sum(prev, next){
+    return prev + next
+}
+function getMax(accumulator, element){   // accumulator: tích lũy
+    return Math.max(accumulator, element);
+}
+
+const prices = [5, 20, 98, 74, 33];
+const total = prices.reduce(sum); // sẽ thực hiện hàm sum() đến khi array chỉ còn 1 giá trị cuối cùng
+const Max = prices.reduce(getMax);
+const Min = prices.reduce(function(prev, next){ // có thẻ tạo luôn func trong này
+    return Math.min(prev, next);
+});
+const alsoSum = prices.reduce( (prev, next) => prev + next);
+
+console.log(`$ ${total.toFixed(2)}`); // 230
+console.log(`Most expensive price: $${Max}`);
+console.log(`Least expensive price: $${Min}`); 
+console.log(`Sum of all prices: $${alsoSum.toFixed(2)}`); // 230
+
+
+
+// Các cách tạo func trong js
+function h(){   
+    console.log('h() called');
+}
+const H = function(){
+    console.log('H() called');
+}
+
+setTimeout(h, 100); // sẽ triển khai h() sau 100ms
+setTimeout(H, 100);
+setTimeout(function(){
+    console.log('anonymous function called');
+}, 100);
+
+const he = (name, age) => {console.log(`hello ${name}`);
+                           console.log(`Ur ${age} year old`)};
+he("Huy", 19);
+
+setTimeout( () => console.log("Hello world."), 100 ); // nếu vt 1 dòng thì k cần {}
+
+
+
+const person1 = {
+    firstName: "John",
+    lastName: "Doe",
+    age: 30,
+    isEmployed: true,
+    sayHello: () => console.log(`Hello ${person1.firstName} ${person1.lastName}.`), // phải để person1. thì nó ms nhận
+                // để this thì sẽ k chạy (do cách khai báo), nó sẽ nhận gtri ở ngoài cnay (ở đây là window)
+    init: function(){console.log(this)},
+}
+const person2 = {
+    firstName: "Đức",
+    lastName: "Hanma",
+    age: 23,
+    isEmployed: false,
+    sayHello: function(){console.log(`Hello ${person2.firstName} ${this.lastName}.`)},
+    init: function(){console.log(this)},
+}
+console.log(this)
+
+console.log(person1.firstName);
+console.log(person1.lastName);
+console.log(person1.age);
+console.log(person1.isEmployed);
+person1.sayHello(); // Hello John
+person1.init();
+
+console.log(person2.firstName);
+console.log(person2.lastName);
+console.log(person2.age);
+console.log(person2.isEmployed);
+person2.sayHello();
+person2.init();
+
