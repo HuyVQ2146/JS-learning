@@ -753,3 +753,115 @@ eagle.eat();
 eagle.sleep();
 eagle.fly();
 
+
+
+class Athlete{
+    constructor(name, age){
+        this.name = name;
+        this.age = age;
+    }
+    move(speed){
+        console.log(`${this.name} moved at a speed of ${speed} kmh.`)
+    }
+}
+class Runner extends Athlete{
+    constructor(name, age, speed){
+        super(name, age);
+        this.speed = speed;
+    }
+    run(){
+        console.log(`${this.name} is a runner.`);
+        super.move(this.speed);  // cách call func trong class bố
+    }
+}
+class Swimmer extends Athlete{
+    constructor(name, age, speed){
+        super(name, age);
+        this.speed = speed;
+    }
+    swim(){
+        console.log(`${this.name} is a swimmer.`);
+        super.move(this.speed);
+    }
+}
+class Sprinter extends Athlete{
+    constructor(name, age, speed){
+        super(name, age); 
+        this.speed = speed;
+    }   
+    sprint(){
+        console.log(`${this.name} is a sprinter.`);
+        super.move(this.speed);
+    }
+}
+const per1 = new Runner("Dio", 22, 30);
+const per2 = new Swimmer("Jeff", 20, 25);
+const per3 = new Sprinter("Mark", 21, 60);
+
+console.log(per1.name);
+console.log(per1.speed);
+per1.run();
+
+console.log(per2.name);
+console.log(per2.speed);
+per2.swim();
+
+console.log(per3.name);
+console.log(per3.speed);
+per3.sprint();
+
+
+
+
+class Rectangle{
+    constructor(width, height){
+        this.width = width;
+        this.height = height;
+    }
+
+    set width(newWidth){ // newWidth là một giá trị bất kỳ được gán vào thuộc tính width của object
+        if (newWidth > 0) {
+            this._width = newWidth; // thêm prefix _ để bt gtri này là private
+        }
+        else{
+            console.error("Width must be greater than 0.");
+        }
+    }
+    set height(newHeight){
+        if (newHeight > 0) {
+            this._height = newHeight;
+        }
+        else{
+            console.error("Height must be greater than 0.");
+        }
+    }
+
+    get width(){
+        return this._width;
+    }
+    get height(){
+        return this._height;
+    }
+    get area(){
+        return this._width * this._height;
+    }
+}
+const rectangle = new Rectangle(5,9);
+
+console.log(rectangle.width); // nếu width k thoải mãn, in ra lỗi và in lại các gia ban đầu
+console.log(rectangle.height);
+console.log(rectangle.area);
+
+rectangle.width = -9;
+rectangle.height = "potato";
+
+console.log(rectangle.width); 
+console.log(rectangle.height);
+console.log(rectangle.area);
+
+rectangle.width = 9;
+rectangle.height = 13;
+
+console.log(rectangle.width); 
+console.log(rectangle.height);
+console.log(rectangle.area);
