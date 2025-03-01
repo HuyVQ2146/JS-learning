@@ -600,3 +600,156 @@ console.log(person2.isEmployed);
 person2.sayHello();
 person2.init();
 
+
+//như này tạo nhiều object vs cùng 1 loại dữ liệu dễ hơn
+function Car(make, model, year, color){
+    this.make = make;
+    this.model = model;
+    this.year = year;
+    this.color = color;
+    this.startEngine = function(){console.log(`${this.make} ${this.model} is starting engine...`)}; 
+}
+
+const car1 = new Car("Ford", "Mustang", 2024, "red"); // bắt buộc phải thêm new
+const car2 = new Car("Lamborghini", "Aventador", 2000, "yellow");
+const car3 = new Car("Chevrolet", "Camaro", 2015, "gold");
+
+console.log(car1);
+car1.startEngine();
+console.log(car1.color);
+
+console.log(car2);
+car2.startEngine();
+console.log(car2.color);
+
+console.log(car3);
+car3.startEngine();
+console.log(car3.color);
+
+
+class Product{
+    constructor(name, price){ // cnay y hệt __init__ trong python, k đổi tên constructor đc
+        this.name = name;
+        this.price = price;
+    }
+    displayInfo(){
+        console.log(`Name: ${this.name}, Price: $${this.price.toFixed(2)}`);
+    }
+    calTax(tax){
+        return this.price * (1 + tax)
+    }
+}
+const tax = 0.05; // có thể dùng giá trị ở ngoài vào bên trong class
+
+const product1 = new Product("Website", 20);
+const product2 = new Product("Computer", 199.993)
+
+product1.displayInfo();
+product2.displayInfo();
+
+const finalCost = product1.calTax(tax) + product2.calTax(tax);
+console.log(`Total price with tax: $${finalCost.toFixed(2)}`);
+
+
+// cách tạo thư viện
+class MathUtil{
+    static PI = 3.14159
+    static getDiameter(radius){
+        return radius * 2;
+    }
+    static getCircumference(radius){
+        return MathUtil.PI * MathUtil.getDiameter(radius);
+    }   
+    static getArea(radius){
+        return MathUtil.PI * Math.pow(radius, 2);
+    }
+}
+console.log(MathUtil.PI);
+console.log(MathUtil.getDiameter(10))
+console.log(MathUtil.getCircumference(10))
+console.log(MathUtil.getArea(10))
+
+
+class User{
+    static userCount = 0;
+    constructor(name){
+        this.name = name;
+        User.userCount++;  // cứ mỗi user đc tạo ra count +=1
+    }
+    static getTotalUsers(){
+        if (User.userCount > 1 ){
+            console.log(`${User.userCount} users are online.`)
+        }
+        else{
+            console.log(`${User.userCount} user is online.`)
+        }
+    }
+    sayHello(){
+        console.log(`Hello, my name is ${this.name}`);
+    }
+}
+
+const user1 = new User("John");
+user1.sayHello();
+console.log(User.userCount); // 1
+User.getTotalUsers();
+
+const user2 = new User("Joe");
+user2.sayHello();
+console.log(User.userCount); // 2 
+User.getTotalUsers(); // hàm static thuộc về class chứ kp biến
+
+
+
+class Animal{
+    alive = true; // để là this.alive cx đc
+
+    eat(){ 
+        console.log(`${this.constructor.name} is eating.`);
+    }
+
+    sleep(){
+        console.log(`${this.constructor.name} is sleeping.`);
+    }
+}
+class Dog extends Animal{ // class Dog là class con của Animal , class con kế thừa thuộc tính của class cha
+    name = "Dog";
+    bark(){  // function mới chỉ tồn tại trong class DOg
+        console.log(`${this.name} is barking.`);
+    }
+}
+
+class Fish extends Animal{ 
+    name = "Fish";
+    swim(){
+        console.log(`${this.name} is swimming.`);
+    }
+}
+
+class Eagle extends Animal{
+    name = "Eagle";
+    fly(){
+        console.log(`${this.name} is flying.`);
+    }
+}
+
+const dog = new Dog();
+const fish = new Fish();
+const eagle = new Eagle();
+
+dog.alive = false;
+console.log(dog.alive);
+dog.eat();
+dog.sleep();
+dog.bark();
+
+console.log(fish.alive);
+fish.eat();
+fish.sleep();
+fish.swim();
+
+console.log(eagle.alive);
+eagle.eat();
+eagle.sleep();
+eagle.fly();
+
