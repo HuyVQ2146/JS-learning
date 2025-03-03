@@ -865,3 +865,134 @@ rectangle.height = 13;
 console.log(rectangle.width); 
 console.log(rectangle.height);
 console.log(rectangle.area);
+
+
+let m = 2;
+let n = 1;
+[m, n] = [n, m];
+console.log(m); // 1
+console.log(n); // 2
+
+let colors = ["red", "green", "blue", "black", "white"];
+let [firstColor, secondColor, thirdColor] = colors;
+console.log(firstColor); // red
+console.log(secondColor);  // green
+console.log(thirdColor); // blue
+
+let [stColor, ndColor, rdColor, ...extraColor] = colors;
+console.log(stColor); // red
+console.log(ndColor); // green
+console.log(rdColor); // blue
+console.log(extraColor); // ["black", "white"]
+
+const pers1 = {
+    per1_name: "John",
+    per1_age: 22,
+    per1_work: "builder",
+}
+const pers2 = {
+    per2_name: "Jane",
+    per2_age: 25,
+}
+const pers3 = {
+    name: "Yasuo",
+    age: 21,
+    job: "swordmaster",
+}
+const pers4 = {
+    name: "Sakura",
+    age: 20,
+    job: "healer",
+}
+const {per1_name, per1_age, per1_work} = pers1; // tên trong {} phải trùng vs tên trong person
+console.log(per1_name); // "John"
+console.log(per1_age); // 22
+console.log(per1_work); // "builder"
+
+const {per2_name, per2_age, per2_work="unemployed"} = pers2; // nếu kco ="unemployed" sẽ ra undifined
+console.log(per2_name); 
+console.log(per2_age); 
+console.log(per2_work);
+
+function displayPer({name, age, job}){
+    console.log(`Name: ${name}`);
+    console.log(`Age: ${age}`);
+    console.log(`Job: ${job}`);
+}
+displayPer(pers3);
+displayPer(pers4);
+
+
+
+const pe = {
+    duc_fullName: "Duc Backy",
+    duc_age: 23,
+    duc_job: "waitress",
+    isStudent: true,
+    hobbies: ["cycling", "laying", "bulking"],
+    address: {
+        street: "De La Thanh",
+        city: "Hanoi",
+        country: "Vietnam",
+    }
+}
+console.log(pe.duc_fullName);
+console.log(pe.duc_age);
+console.log(pe.duc_job);
+console.log(pe.isStudent);
+console.log(pe.hobbies);
+console.log(pe.hobbies[2]);
+console.log(pe.address);
+console.log(pe.address.street); // cách gọi {} trong {}
+for(const property in pe.address){ // giống dict trong pyhton
+    console.log(pe.address[property]);
+}
+
+
+
+
+class PERson{
+    constructor(name, age, ... address){  // phần còn lại sẽ trong ...address
+        this.name = name;
+        this.age = age;
+        this.address = new Address(...address);
+    }
+}
+class Address{
+    constructor(street, city, country){
+        this.street = street;
+        this.city = city;
+        this.country = country;
+    }
+}
+const perS1 = new PERson("Duk Yiu", 19, "766 DeLaThanh", "Hưng Yên", "VN");
+console.log(perS1);
+console.log(perS1.name);
+console.log(perS1.age);
+console.log(perS1.address);
+console.log(perS1.address.city);
+
+
+
+const Fruits = [
+    {name: "apple", color: "red", calories: 95},
+    {name: "banana", color: "yellow", calories: 105},
+    {name: "orange", color: "orange", calories: 85},
+    {name: "grape", color: "purple", calories: 120},
+    {name: "melon", color: "green", calories: 140},
+    {name: "watermelon", color: "green", calories: 160},
+    {name: "pineapple", color: "yellow", calories: 110},
+]
+Fruits.forEach(fruit => console.log(fruit.name));
+
+const fruitsColor = Fruits.map(fruit => fruit.color);
+console.log(fruitsColor);
+
+const greenFruits = Fruits.filter(fruit => fruit.color === "green");
+console.log(greenFruits);
+
+const highCaloFruits = Fruits.filter(fruit => fruit.calories >= 100);
+highCaloFruits.forEach(fruit => console.log(fruit.name));
+
+const maxCalo = Fruits.reduce((max, cur) => max.calories > cur.calories ? max : cur);
+console.log(maxCalo);
