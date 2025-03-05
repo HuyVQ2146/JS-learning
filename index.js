@@ -996,3 +996,168 @@ highCaloFruits.forEach(fruit => console.log(fruit.name));
 
 const maxCalo = Fruits.reduce((max, cur) => max.calories > cur.calories ? max : cur);
 console.log(maxCalo);
+
+Fruits.sort((a,b) => a.calories - b.calories); // sắp xếp theo sự tăng dần của số calo
+Fruits.forEach(fruit => console.log(fruit.name));
+console.log(Fruits.map(f => f.name));
+// ['orange', 'apple', 'banana', 'pineapple', 'grape', 'melon', 'watermelon']
+Fruits.sort((a,b) => a.name.localeCompare(b.name)); // sắp xếp str theo lexicographic
+Fruits.forEach(fruit => console.log(fruit.name));
+Fruits.sort((a,b) => b.name.localeCompare(a.name)); // sắp xếp str theo reversed lexicographic
+Fruits.forEach(fruit => console.log(fruit.name));
+
+
+
+
+let fs = ["apple", "orange", "pineapple", "mango", "lime", "pear"];
+fs.sort();
+console.log(fs);
+
+let nms = [1,10,7,5,3,9,2];
+nms.sort(); // [1, 10, 2, 3, 5, 7, 9] : lexicographic
+console.log(nms);
+nms.sort((a,b) => a-b);  // [1, 2, 3, 5, 7, 9, 10] : như sort() bthg trong python
+console.log(nms);
+nms.sort((a,b) => b-a); // [10, 9, 7, 5, 3, 2, 1] : như sort(reverse=True) trong python
+console.log(nms);
+
+
+
+// tạo hàm tráo (shuffle()):
+const cards = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
+shuffle(cards);
+console.log(cards);
+function shuffle(array){
+    for (let i = array.length - 1; i >= 0; i--){
+        const random = Math.floor(Math.random() * (i + 1));
+        [array[i], array[random]] = [array[random], array[i]];
+    }
+}
+
+
+
+// Date(year, month, day, hour, minute, second, ms)
+let date = new Date(2024,0,1,2,3,4,5); // tháng 1 là 0 -  tháng 12 là 11 // 1 → Ngày 1.
+console.log(date); // Mon Jan 01 2024 02:03:04 GMT+0700 (Indochina Time)
+date = new Date("2024-01-02T12:00:00Z");
+console.log(date); // Tue Jan 02 2024 19:00:00 GMT+0700 (Indochina Time)
+/*  "2024-01-02" → Ngày 2 tháng 1 năm 2024.
+    "T12:00:02" → Giờ 12, phút 00, giây 02. */
+date = new Date(1700000000000); // Tạo đối tượng Date từ timestamp (số milliseconds tính từ 01/01/1970 UTC).
+console.log(date); // Wed Nov 15 2023 05:13:20 GMT+0700 (Indochina Time)
+
+
+date = new Date(); // Tạo một đối tượng Date mới với thời gian hiện tại.
+const year = date.getFullYear(); // chạy từ 0-11
+const month = date.getMonth();
+const Day = date.getDate();
+const DayOfWeek = date.getDay(); // sunday: 0, monday: 1
+const hour = date.getHours();
+const minute = date.getMinutes();
+const second = date.getSeconds();
+
+console.log(`Year: ${year}`);
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+console.log(`Month: ${months[month]}`);
+const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+console.log(`Day: ${days[DayOfWeek]}, ${Day} ${months[month]} ${year}`);
+console.log(`Time: ${hour}:${minute}:${second}`);
+
+// tạo ngày ms
+date = new Date();
+date.setFullYear(2023);
+date.setMonth(3);
+date.setDate(25);
+date.setHours(6);
+date.setMinutes(25);
+date.setSeconds(3);
+console.log(date); // Tue Apr 25 2023 06:25:03 GMT+0700 (Indochina Time)
+
+
+// múi h
+date = new Date();
+console.log(date.toLocaleString("en-US", { timeZone: "Asia/Jakarta" })); // Múi giờ Jakarta (GMT+7)
+console.log(date.toLocaleString("en-US", { timeZone: "Asia/Tokyo" })); // Múi giờ Tokyo (GMT+9)
+console.log(date.toLocaleString("en-US", { timeZone: "UTC" })); // Giờ quốc tế UTC
+
+//Nếu bạn muốn hiển thị thời gian UTC thay vì thời gian địa phương:
+console.log(date.toUTCString()); // Hiển thị ngày giờ theo UTC  
+// // Wed, 05 Mar 2025 07:32:57 GMT
+
+
+const date1 = new Date("2024-12-31");
+const date2 = new Date("2025-01-01");
+if (date2 > date1){     // true
+    console.log("Happy new year!")
+}
+
+
+// inner func
+function createCounter(){
+    let count = 0;
+
+    function increase(){
+        count++;
+        console.log(`Count is: ${count}`);
+    }
+
+    function getCount(){
+        return count;
+    }
+
+    return {increase, getCount};
+    /* là :
+    return {
+        increase: increase,
+        getCount: getCount
+    };
+    Do ES6 cho phép viết gọn nếu tên thuộc tính trùng với tên biến nên ta chỉ cần { increase, getCount }. */
+}
+const counter = createCounter();
+counter.increase();
+counter.increase();
+console.log(`The current count is: ${counter.getCount()}`);
+
+
+
+function createGame(){
+    let score = 0;
+    
+    function getStart(){
+        console.log("Game start!");
+    }
+
+    function getScore(){
+        return score;
+    }
+
+    function gainScore(points){
+        score += points;
+        console.log(`+${score}pts`);
+    }
+
+    function loseScore(points){
+        score -= points;
+        console.log(`-${score}pts`);
+    }
+
+    return {getStart, getScore, gainScore, loseScore}
+}
+const game = createGame();
+game.gainScore(8);
+game.gainScore(5);
+game.loseScore(3);
+console.log(`Final score: ${game.getScore()}pts.`)
+
+
+
+
+// setTimeout(func, time):
+function startTimer(){
+    timeoutId = setTimeout(() => window.alert("Start"), 3000);
+    console.log("Countdown started!"); // cnay chạy trc cái timeOut
+}
+function clearTimer(){ 
+    clearTimeout(timeoutId);  // dùng func này thì func bên trong theo timeout sẽ k chạy nx
+    console.log("Countdown stopped!");
+}
