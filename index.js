@@ -137,13 +137,13 @@ while (!login) {
 */
 
 // hoặc 
-friendName ="  cThuLul     ";
+let friendName ="  cThuLul     ";
 friendName = friendName.trim().charAt(0).toUpperCase() + friendName.trim().slice(1).toLowerCase(); // slice từ [1:]
 console.log(friendName);
 
 
 let friendAge = window.prompt("Friend Age: ");
-hisAge = Number(friendAge);
+let hisAge = Number(friendAge);
 hisAge += 1;
 console.log(hisAge);
 
@@ -158,7 +158,7 @@ else{
 let k = 'pizza';
 x = Number(k);
 y = String(k);
-z = Boolean(k);
+let z = Boolean(k);
 console.log(x, typeof x); // NaN 'number'
 console.log(y, typeof y); // pizza string
 console.log(z, typeof z); // true 'boolean' (cứ khác (0 hoặc "") là true)
@@ -341,15 +341,15 @@ function hpBrthd(name,age){
 }
 hpBrthd('Duy Đức', 19)
 
-function sum(x, y ){
+function Sum(x, y ){
     return x + y;
 }
-console.log(sum(9,87))
+console.log(Sum(9,87))
 
-function isEven(num){
+function IsEven(num){
     return num % 2 === 0 ? `The number: ${num} is even` : `The number: ${num} is odd`;
 }
-console.log(isEven(524))
+console.log(IsEven(524))
 
 function checkRegularEmail(email) {
     if(email.includes('@') && email.includes('.com')){ // giống if "@" in email trong python
@@ -553,7 +553,7 @@ const H = function(){
     console.log('H() called');
 }
 
-setTimeout(h, 100); // sẽ triển khai h() sau 100ms
+setTimeout(h(), 100); // sẽ triển khai h() sau 100ms
 setTimeout(H, 100);
 setTimeout(function(){
     console.log('anonymous function called');
@@ -1048,8 +1048,8 @@ console.log(date); // Wed Nov 15 2023 05:13:20 GMT+0700 (Indochina Time)
 
 
 date = new Date(); // Tạo một đối tượng Date mới với thời gian hiện tại.
-const year = date.getFullYear(); // chạy từ 0-11
-const month = date.getMonth();
+const year = date.getFullYear(); 
+const month = date.getMonth(); // chạy từ 0-11
 const Day = date.getDate();
 const DayOfWeek = date.getDay(); // sunday: 0, monday: 1
 const hour = date.getHours();
@@ -1133,12 +1133,12 @@ function createGame(){
 
     function gainScore(points){
         score += points;
-        console.log(`+${score}pts`);
+        console.log(`+${points}pts`);
     }
 
     function loseScore(points){
         score -= points;
-        console.log(`-${score}pts`);
+        console.log(`-${points}pts`);
     }
 
     return {getStart, getScore, gainScore, loseScore}
@@ -1160,4 +1160,68 @@ function startTimer(){
 function clearTimer(){ 
     clearTimeout(timeoutId);  // dùng func này thì func bên trong theo timeout sẽ k chạy nx
     console.log("Countdown stopped!");
+}
+
+
+
+// muốn import thì phải thêm type="module" vào phần <script></script>
+import {PI, getCircumference, getArea, getVolume} from './lib.js';
+console.log(PI)
+const Circumference = getCircumference(10);
+const Area = getArea(10);
+const Volume = getVolume(10);
+
+console.log(`Circumference: ${Circumference.toFixed(2)}cm`);
+console.log(`Area: ${Area.toFixed(2)}cm^2`);
+console.log(`Volume: ${Volume.toFixed(2)}cm^3`);
+
+
+// synchronous: là line-by-line bthg
+// asynchronous: là mấy cái chạy cùng lúc (như setTimeout())
+function f1(callback){
+    setTimeout(() => {console.log("Task 1");
+                      callback();}, 500)
+}
+function f2(){
+    console.log("Task 2");
+    console.log("Task 3");
+    console.log("Task 4");
+} 
+f1(f2); 
+
+
+
+// cách bắt lỗi
+try{
+    console.log(this_is_a_big_error)
+}
+catch(error){ // nếu có lỗi ở try thì sẽ bắt lại
+    console.error(error);
+}
+finally{  // cái này sẽ luôn chạy bất kể có lỗi hay k
+    console.log("This will always run."); // luôn luôn chạy
+}
+
+
+try{
+    const dividend = Number(window.prompt("Enter a dividend:"));
+    const divisor = Number(window.prompt("Enter a divisor:"));
+
+    /*throw dùng để ném lỗi đó ra, 
+    làm dừng chương trình hoặc nhảy vào catch nếu có try...catch.*/ 
+    if(divisor == 0){
+        throw new Error("Divisor cannot be zero.");
+    }
+
+    if(isNaN(dividend) || isNaN(divisor)){ 
+        throw new Error("Invalid input. Please enter a number.");
+    }
+
+    console.leg(dividend / divisor);
+}
+catch(error){
+    console.error(error);
+}
+finally{
+    console.log("Success")
 }
