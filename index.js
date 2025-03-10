@@ -1225,3 +1225,288 @@ catch(error){
 finally{
     console.log("Success")
 }
+
+
+document.title = "LearningJS"; // sửa title
+document.body.style.backgroundColor = "hsl(0, 0%, 80%)"; // đổi màu background mà k dùng css
+console.dir(document) // tất cả mọi thứ trong document
+
+
+const myHeading =  document.getElementById("myHeading");
+myHeading.style.backgroundColor = "orange";
+myHeading.style.textAlign = "center";
+console.log(myHeading);
+// <h2 id="myHeading" style="background-color: orange; 
+// text-align: center;">cre: vqHuy</h2>
+
+
+const supports = document.getElementsByClassName("supports"); // đây coi như là 1 array
+                                                              // HTMLCollection
+                                                              // vẫn có [i] theo thứ tự
+                                                              // vd supports[0] == Sp1
+console.log(supports);
+for (let sp of supports){
+    sp.style.backgroundColor = "lime";
+    console.log(sp);
+}
+// k muốn dùng for thì có thể dùng array method
+Array.from(supports).forEach(sp => {
+    sp.style.fontWeight = "bold";
+})
+
+
+const h4elements = document.getElementsByTagName("h4");
+const lielements = document.getElementsByTagName("li");
+console.log(h4elements);
+console.log(lielements);
+
+for(let h4 of h4elements){
+    h4.style.backgroundColor = "darkblue";
+    h4.style.color = "white";
+}
+Array.from(lielements).forEach(li => {
+    li.style.backgroundColor = "lightgreen";
+})
+
+
+const element = document.querySelector("li"); // querySelector() sẽ chỉ chọn cái đầu tiên
+element.style.backgroundColor = "green";
+element.style.color = "white";
+
+const sp1 = document.querySelector(".supports"); // dùng .ClassName cx đc
+sp1.style.backgroundColor = "wheat";
+
+const sps = document.querySelectorAll(".supports");
+sps[2].style.backgroundColor = "pink";
+
+const li = document.querySelectorAll("li"); // chọn trong tất cả các li của web
+li[5].style.backgroundColor = "pink"; 
+
+
+
+const sale = document.getElementById("sale");
+const firstSale = sale.firstElementChild;
+firstSale.style.backgroundColor = "purple";
+firstSale.style.color = "white";
+const sale_next = sale.nextElementSibling; // ở đây next là cả <ul>
+                                           // nếu kco next thì k chạy
+sale_next.style.backgroundColor = "lightblue";
+
+const uls = document.querySelectorAll("ul");
+uls.forEach(ul => {
+    const firstUl = ul.firstElementChild;
+    firstUl.style.fontSize = "1.5em"
+
+    const lastUl = ul.lastElementChild;
+    lastUl.style.fontSize = "1.2em";
+    lastUl.style.fontWeight = "bold";
+
+})  
+
+const huy = document.getElementById("Huy");
+const huy_next = huy.nextElementSibling;
+huy_next.style.backgroundColor = "brown"; // cái tiếp theo sau cái có id "Huy"
+const parent = huy.parentElement; // ở đây là cả <ul> ngoài
+parent.style.backgroundColor = "gray"; 
+
+const thang = document.getElementById("Thang");
+const thang_prev = thang.previousElementSibling;
+thang_prev.style.color = "white"; // kco ỏev thì k chạy
+
+const service = document.getElementById("service");
+const children = service.children; // là array
+console.log(children);
+Array.from(children).forEach(child => {
+    child.style.backgroundColor = "white";
+})
+children[3].style.color = "red";
+
+
+
+const newH1 = document.createElement("h1"); // tạo thêm thẻ <h1>
+newH1.textContent = "Created by js";
+document.body.append(newH1); // thêm vào cuối body
+newH1.id = "newH1";
+newH1.style.color = "brown";
+
+const newH1_next = document.createElement("h1"); // tạo thêm thẻ <h1>
+newH1_next.textContent = "Created by js";
+newH1_next.id = "newH1_next";
+newH1_next.style.color = "tomato";
+newH1_next.style.display = "block";
+newH1_next.style.textAlign = "center";
+document.body.prepend(newH1_next); // thêm lên đầu body
+
+const newH2 = document.createElement("h2"); // tạo thêm thẻ <h2>
+newH2.textContent = "Created by js";
+document.getElementById("box1").append(newH2); // thêm vào cuối Box1
+newH2.id = "newH2";
+newH2.style.textAlign = "center";
+newH2.style.color = "brown";
+
+const newH2_next = document.createElement("h2"); // tạo thêm thẻ <h2>
+newH2_next.textContent = "Created by js";
+newH2_next.id = "newH2_next";
+newH2_next.style.color = "tomato";
+newH2_next.style.textAlign = "center";
+document.getElementById("box2").prepend(newH2_next); // thêm lên đầu Box2 
+
+const newH3 = document.createElement("h3");
+newH3.textContent = "Created by js";
+newH3.id = "newH3";
+newH3.style.textAlign = "center";
+newH3.style.color = "blue";
+const box3 = document.getElementById("box3");
+document.body.insertBefore(newH3,      box3); // chèn newH3 và trc box3
+                        //newElement   currentElement
+
+const newH3_next = document.createElement("h3"); // tạo thêm thẻ <h3>
+newH3_next.textContent = "Created by js";
+newH3_next.id = "newH3_next";
+newH3_next.style.color = "tomato";
+newH3_next.style.textAlign = "center";
+const boxes = document.querySelectorAll(".box");
+document.body.insertBefore(newH3_next, boxes[3]);
+
+const b4 = document.getElementById("b4");
+document.getElementById("box4").removeChild(b4); // cách xóa trong html
+// xóa chữ Box 4
+
+const newListItem = document.createElement("li");
+newListItem.id = "line4";
+newListItem.style.fontWeight = "bold";
+newListItem.textContent = "Line 4";
+newListItem.style.backgroundColor = "lime";
+document.getElementById("lines").append(newListItem);
+// có thể dùng tất cả các cách trên để chèn line4 vào trong lines
+
+const myBox = document.getElementById("myBox"); // có thể dùng tương tự vs btn
+function changeColor(event){ 
+    console.log(event);
+    event.target.style.backgroundColor = "tomato";
+    event.target.textContent = "Ouch! ⚔️";
+}
+myBox.addEventListener("click", changeColor)
+                     // event    callback
+// hoặc cách khác
+myBox.addEventListener("mouseover", event => { // event sẽ nhận cái trc đấy
+                                               // ở đây là "mouseover"
+    event.target.style.backgroundColor = "yellow";
+        //target ở đây là "myBox" bên ngoài
+    event.target.textContent = "Click me 🙂";
+})
+myBox.addEventListener("mouseout", event => {
+    event.target.style.backgroundColor = "antiquewhite";
+    event.target.textContent = "Come here 🎶";
+})
+document.addEventListener("keydown", event => { // nếu bấm trên bàn phím
+    console.log(`Key down: ${event.key}`);
+});
+document.addEventListener("keyup", event => { // nếu thả tay ra khỏi phím   
+    console.log(`Key up: ${event.key}`);
+});
+
+const myBox2 = document.getElementById("myBox2");
+document.addEventListener("keydown", event => { 
+    myBox2.style.backgroundColor = "tomato";
+});
+document.addEventListener("keyup", event => {   
+    myBox2.style.backgroundColor = "lightblue";
+});
+const moveAmount = 10;
+let X = 0;
+let Y = 0;
+document.addEventListener("keydown", event => {
+    if (event.key.startsWith("Arrow")){
+
+        event.preventDefault(); // cnay để nếu myBox2 ra khỏi màn hình (tạo phần
+                                // scroll) thì giữa nguyên vị trí của màn hình
+                                // chứ k theo myBox2
+
+        switch(event.key){
+            case "ArrowUp":
+                Y -= moveAmount;
+                break;
+            case "ArrowDown":
+                Y += moveAmount;
+                break;
+            case "ArrowLeft":
+                X -= moveAmount;
+                break;
+            case "ArrowRight":
+                X += moveAmount;
+                break;
+        }
+        myBox2.style.top = `${Y}px`; // vị trí của myBox2
+        myBox2.style.left = `${X}px`;
+    }
+});
+
+
+
+const myImg = document.getElementById("myImg");
+const imgBtn = document.getElementById("imgBtn");
+imgBtn.addEventListener("click", event =>{
+    /* 2 cách :
+    if (myImg.style.display === "none"){
+        myImg.style.display = "block";
+        imgBtn.textContent = "Hide";
+    }
+    else{
+        myImg.style.display = "none";
+        imgBtn.textContent = "Show";
+    }
+    */
+    if (myImg.style.visibility === "hidden"){
+        myImg.style.visibility = "visible";
+        imgBtn.textContent = "Hide";
+    }
+    else{
+        myImg.style.visibility = "hidden";
+        imgBtn.textContent = "Show";
+    }
+
+})
+
+
+let btns = document.querySelectorAll(".myBtns");
+console.log(btns);
+/*
+    Static NodeList: Kết quả của querySelectorAll() 
+→ không tự động cập nhật nếu DOM thay đổi.
+    NodeList có thể duyệt qua bằng vòng lặp forEach(), 
+nhưng không có đầy đủ các phương thức của Array như map(), 
+filter(), reduce().
+*/
+btns.forEach(btn => {
+    btn.style.backgroundColor = "tomato";
+    btn.textContent += "😶‍🌫️";
+
+    btn.addEventListener("mouseover", event => {
+        event.target.style.backgroundColor = "red";
+    })
+
+    btn.addEventListener("click", event => {
+        event.target.style.backgroundColor = "blue";
+    })
+
+    btn.addEventListener("mouseout", event => {
+        event.target.style.backgroundColor = "tomato";
+    })
+})
+
+const newBtn = document.createElement("button");
+newBtn.textContent = "Button 5";
+newBtn.classList = "myBtns";
+document.body.appendChild(newBtn); 
+// nếu console.log(btns) kết quả chỉ như cũ, k update
+btns = document.querySelectorAll(".myBtns");
+console.log(btns);
+
+btns.forEach(btn => {
+    btn.addEventListener("click", event => {
+        event.target.remove();
+        btns = document.querySelectorAll(".myBtns");
+        console.log(btns);
+    })
+})
