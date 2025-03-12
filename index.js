@@ -1505,8 +1505,37 @@ console.log(btns);
 
 btns.forEach(btn => {
     btn.addEventListener("click", event => {
-        event.target.remove();
+        event.target.remove();  // cách xóa
         btns = document.querySelectorAll(".myBtns");
         console.log(btns);
     })
+})
+
+
+// có thể dùng phương pháp này cho mọi thứ k chỉ btn
+const myButton = document.getElementById("myButton");
+myButton.classList.add("enabled"); // thêm class "enabled" vào myButton 
+myButton.addEventListener("mouseover", event => {
+    event.target.classList.remove("enabled"); // xóa class "enabled" khỏi myButton 
+})
+myButton.addEventListener("mouseout", event => {
+    event.target.classList.add("enabled"); 
+})
+
+myButton.addEventListener("mouseover", event => {
+    event.target.classList.toggle("hover"); // .toggle sẽ xóa class nếu đã có,
+                                            //         thêm class nếu chưa có
+})
+myButton.addEventListener("mouseout", event => { 
+    event.target.classList.toggle("hover");
+})
+myButton.addEventListener("click", event => {
+    if (event.target.classList.contains("disabled")){ // nếu chứa class "disabled"
+        event.target.textContent += "🤬";
+        event.target.classList.replace("disabled", "mBtn");
+    }
+    else{   
+        event.target.classList.replace("mBtn" ,   "disabled");
+                                    //hiện tại      để đổi
+    }
 })

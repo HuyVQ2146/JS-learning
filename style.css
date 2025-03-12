@@ -67,3 +67,32 @@ body{
     background-color: blue;
     color:azure 
 }
+
+
+
+
+#myButton{
+    font-size: 4rem;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+/* tạo trc class để thay đổi css sau */
+.enabled{
+    background-color: rgb(0, 157, 255);
+    color: white;
+}
+.hover{
+    box-shadow: 0 0 10px hsl(0, 0%, 0%, 0.2);
+    font-weight: bold; 
+}
+.disabled{
+    background-color: rgb(0, 255, 89);
+    color: white;
+}
+
+.mBtn{
+    font-family: monospace;
+}
