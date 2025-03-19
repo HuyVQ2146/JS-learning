@@ -336,6 +336,19 @@ for (let i = 1; i < 20 ; i++){ // i+= 1 cx đc
     }
 }
 
+
+// setTimeout(func, time):
+function startTimer(){
+    timeoutId = setTimeout(() => window.alert("Start"), 3000);
+    console.log("Countdown started!"); // cnay chạy trc cái timeOut
+}
+function clearTimer(){ 
+    clearTimeout(timeoutId);  // dùng func này thì func bên trong theo timeout sẽ k chạy nx
+    console.log("Countdown stopped!");
+}
+
+
+
 function hpBrthd(name,age){
     console.log(`Happy Birthday ${name}! You are ${age} now! Get your ass up and get to work!`)
 }
@@ -1152,15 +1165,7 @@ console.log(`Final score: ${game.getScore()}pts.`)
 
 
 
-// setTimeout(func, time):
-function startTimer(){
-    timeoutId = setTimeout(() => window.alert("Start"), 3000);
-    console.log("Countdown started!"); // cnay chạy trc cái timeOut
-}
-function clearTimer(){ 
-    clearTimeout(timeoutId);  // dùng func này thì func bên trong theo timeout sẽ k chạy nx
-    console.log("Countdown stopped!");
-}
+
 
 
 
@@ -1539,3 +1544,176 @@ myButton.addEventListener("click", event => {
                                     //hiện tại      để đổi
     }
 })
+
+
+/*
+Callback Hell: cái vòng lặp lồng vào nhau
+
+dùng promises và async/await (setTimeOut) để tránh
+*/
+/*
+Vd callback hell:
+
+function walkDog(){
+    setTimeout(() => {
+        console.log("You walk the dog.");    
+    }, 1500);
+}
+function cleanKitchen(){
+    setTimeout(() => {
+        console.log("You clean the kitchen.");    
+    }, 2500);
+}
+function takeOutTrash(){
+    setTimeout(() => {
+        console.log("You take out the trash.");    
+    }, 500);
+}
+
+walkDog(() => {
+    cleanKitchen(() => {
+        takeOutTrash(() => console.log("You finish all the chores."));
+    });
+});
+*/
+
+// Promises
+/*(resolve, reject) => { ... }: Đây là một hàm callback được truyền vào Promise. 
+                                Callback này nhận hai tham số:
+resolve: Một hàm được gọi khi tác vụ thành công, trả về kết quả.
+reject: Một hàm được gọi khi tác vụ thất bại, trả về lỗi.*/
+function walkDog(){
+
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("You walk the dog.");  
+    // nếu để reject thì sẽ phải thêm .catch() để bắt lỗi(cách dùng như then() )
+    // k dùng catch thì chương trình sẽ dừng lại
+        }, 1500);
+    });
+}
+function cleanKitchen(){
+
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("You clean the kitchen.");    
+        }, 2500);
+    });
+
+}
+function takeOutTrash(){
+
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("You take out the trash.");    
+        }, 500);
+    });
+}
+walkDog().then(value => {
+    console.log(value);
+    return cleanKitchen();
+}).then(value => {
+    console.log(value);
+    return takeOutTrash();
+}).then(value => {
+    console.log(value);
+    console.log("You finish all the chores.");
+})
+/*
+.then(): Hàm này sẽ được gọi khi ...() hoàn thành thành công.
+value: Chính là kết quả từ ...(), tức là "abcxyz".
+console.log(value): In ra kết quả "abcxyz".
+return ...next...(): Sau khi in ra, 
+        hàm ...next...() sẽ được gọi và trả về một Promise mới.
+*/ 
+async function doChores(){  // async: make func return a promise
+    try{
+        const walkDogRes = await walkDog(); 
+                        // await: make async wait for a promise
+                        // await phải đi với async
+        console.log(walkDogRes);
+
+        const cleanKitchenRes = await cleanKitchen();
+        console.log(cleanKitchenRes);
+
+        const takeOutTrashRes = await takeOutTrash();
+        console.log(takeOutTrashRes);
+
+        console.log("You finish all the chores.");
+    }
+    catch(err){
+        console.error("Error: ", err);
+    }
+}
+doChores();
+
+
+/*
+File .json (JavaScript Object Notation) là một định dạng dùng để lưu trữ 
+                                    và trao đổi dữ liệu giữa các hệ thống. 
+
+Dưới đây là một số mục đích thường dùng của file .json:
+1.🌐 Trao đổi dữ liệu giữa client và server:
+Ví dụ: Khi bạn làm web, server có thể gửi dữ liệu về cho trình duyệt dưới dạng JSON.
+2.📦 Lưu trữ cấu hình (config):
+Ví dụ: File config.json chứa thông tin như địa chỉ server, cổng kết nối, 
+        hoặc key API.
+3.📊 Lưu trữ dữ liệu:
+Ví dụ: Một ứng dụng quản lý sinh viên có thể dùng file students.json để 
+        lưu danh sách sinh viên.
+🔍 Làm việc với API:
+Khi gọi API, kết quả trả về thường ở dạng JSON.
+4.⚙️ Định nghĩa cấu trúc dữ liệu:
+Ví dụ: File JSON có thể mô tả cấu trúc của một object trong chương trình.
+
+
+HỌC TRONG CÁC FILE: 
+-[]: như trong names.json
+-{}: như trong person.json
+-[{},{},{}]: như trong people.json
+*/
+
+const names = ["John Doe","Huy", "Đức", " Quang"];
+const person = [{
+    "name": "Huy",
+    "age": 19,
+    "hobbies": ["reading", "painting", "cooking"],
+    "isStudent": true
+}];
+const people = [{"name": "John Doe", "age": 30, "isStudent": false},
+                {"name": "Huy", "age": 19, "isStudent": true},
+                {"name": "Đức","age": 19,"isStudent": false},
+                {"name": "Quang","age": 19,"isStudent": true}];
+console.log(names);
+console.log(JSON.stringify(names));
+// chuyển từ JS objects sang JSON string
+
+console.log(person)
+console.log(JSON.stringify(person));
+
+console.log(people);
+console.log(JSON.stringify(people));
+
+/*
+fetch() là một hàm dùng để thực hiện các yêu cầu HTTP 
+(như GET, POST, PUT, DELETE) đến một server, thường để lấy 
+hoặc gửi dữ liệu. Nó trả về một Promise nên hoạt động bất 
+đồng bộ (asynchronous), giúp code gọn gàng và dễ đọc hơn khi 
+làm việc với dữ liệu từ API. 
+*/
+fetch("names.json")
+    .then(response => response.json())
+    //response.json(): Đây là một hàm Promise giúp đọc dữ liệu từ response 
+                     //và chuyển từ chuỗi JSON sang đối tượng JavaScript.
+    .then(value => console.log(value));
+
+fetch("person.json")
+    .then(response => response.json())
+    .then(value => console.log(value));
+
+fetch("people.json")
+    .then(response => response.json())
+    .then(values => values.forEach(value => console.log(value)));
+
+
+

@@ -53,7 +53,10 @@
 
     <p id="p"></p>
 
-    <button onclick="startTimer()">START</button>
+    <button onclick="startTimer()">START</button> 
+    <!--
+    k chạy vì dùng <script src="index.js" type="module">
+    -->
     <button onclick="clearTimer()">CLEAR</button>
 
     <h2><span>Profile</span></h2>
@@ -162,10 +165,20 @@
     <button id="myButton" class="mBtn">Button</button>
     <br>
 
+    <input type="text" id="pokemonName" placeholder="Enter pokemon name">
+    <button onclick="fetchData()">Fetch Pokemon</button>
+    <br>
+    <img src="" alt="Pokemon Sprite" id="pokemonSprite" style="display: none">
+
     <script src="index.js" type="module"></script> <!--script phải ở dưới cùng(của phần muốn chạy) mới chạy đc-->
+    <script src="pokemon.js"></script>
     <!--    type="module"
     để như này mới import được, nếu k muốn import thì k cần để
     Các biến mặc định có phạm vi riêng trong module
     -->
 </body>
 </html>
+
+<!--
+Minh Đức : 30/10/2006
+-->
